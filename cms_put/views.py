@@ -4,6 +4,8 @@ from models import Page
 from django.http import HttpResponse, HttpResponseNotFound
 
 # Create your views here.
+
+
 @csrf_exempt
 def processCMS(request, recurso):
     if request.method == "GET":
@@ -20,4 +22,3 @@ def processCMS(request, recurso):
             return HttpResponse("Nueva fila")
         except:
             return HttpResponseNotFound("Error")
-    

@@ -9,7 +9,7 @@ def processCMS(request, recurso):
     if request.method == "GET":
         try:
             fila = Page.objects.get(name=recurso)
-            return HttpResponse("page: " + fila.page)
+            return HttpResponse(fila.page)
         except Page.DoesNotExist:
             return HttpResponseNotFound('Page not found: /%s' % recurso)
     elif request.method == "PUT":
@@ -20,4 +20,3 @@ def processCMS(request, recurso):
             return HttpResponse("Nueva fila")
         except:
             return HttpResponseNotFound("Error")
-    
