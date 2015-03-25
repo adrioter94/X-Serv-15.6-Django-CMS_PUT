@@ -1,0 +1,23 @@
+from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
+from models import Page
+from django.http import HttpResponse, HttpResponseNotFound
+
+# Create your views here.
+@csrf_exempt
+def processCMS(request, recurso):
+    if request.method == "GET":
+        try:
+            fila = Page.objects.get(name=recurso)
+            return HttpResponse(fila.page)
+        except Page.DoesNotExist:
+            return HttpResponseNotFound('Page not found: /%s' % recurso)
+    elif request.method == "PUT":
+        try:
+            cuerpo = request.body
+            fila = Page.objects.create(name=recurso, page=cuerpo)
+            fila.save()
+            return HttpResponse("Nueva fila")
+        except:
+            return HttpResponseNotFound("Error")
+    
